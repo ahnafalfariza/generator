@@ -1,4 +1,5 @@
 import yaml
+import json
 import random
 import imageio
 import numpy as np
@@ -110,6 +111,11 @@ class Generator:
 
     def save_desc(self, name, desc):
         desc_path = self.build / (name + '.yaml')
+        desc_path_json = self.build / (name + '.json')
+
+        with open(desc_path_json, "w") as outfile:
+            json.dump(desc, outfile)
+
         with open(desc_path, 'w') as desc_file:
             desc_file.write(yaml.dump(desc))
 
@@ -180,9 +186,9 @@ def main():
         # mistakes = add_mistakes(i)
         gen.generate_normal(i, mistakes)
 
-    # Generate legendary doggos
-    for item in config_legend:
-        gen.generate_legend(item)
+    # # Generate legendary doggos
+    # for item in config_legend:
+    #     gen.generate_legend(item)
 
     # Create single picture of all doggos
     gen.generate_collage()
